@@ -1,21 +1,20 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'PGU Brofix Extras',
-    'description' => 'Enhanced Brofix link checker with Cloudflare detection and other improvements. Based on sypets/brofix.',
+    'title' => 'PGU Brofix Cloudflare Helper',
+    'description' => 'Extends sypets/brofix to improve detection and display of Cloudflare-protected links.',
     'category' => 'module',
     'author' => 'Patrice Gaumond, Jules Agent',
     'author_email' => 'patrice.gaumond@pgu.dev',
     'state' => 'alpha',
-    'clearCacheOnLoad' => 0,
+    'clearCacheOnLoad' => 1, // Recommended to clear cache on load for such modifications
     'version' => '0.1.0',
     'constraints' => [
         'depends' => [
             'typo3' => '12.4.0-13.9.99',
+            'brofix' => '', // Dependency on sypets/brofix extension (version can be specified if known)
         ],
-        'conflicts' => [
-            'brofix' => '*', // Conflicts with the original brofix if installed
-        ],
+        'conflicts' => [],
         'suggests' => [],
     ],
     'autoload' => [

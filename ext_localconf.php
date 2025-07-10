@@ -2,39 +2,38 @@
 
 defined('TYPO3') or die();
 
-// This file is for registering hooks, services, event listeners,
-// and other runtime configurations.
-// We will populate this as we adapt the Brofix logic.
-
-// Example: If Brofix had its LinkAnalyzer or Linktype classes as services,
-// or if we need to register backend modules or XCLASSes (though XCLASSing is older).
+use Gaumondp\PguBrofixExtras\EventListener\LinkAnalysis\ModifyLinkTargetResponseForCloudflareListener;
+use Sypets\Brofix\Event\ModifyLinkTargetResponseEvent; // Assuming Brofix might dispatch such an event.
+                                                        // If not, this line and its usage would be removed.
 
 call_user_func(function () {
-    // Module registration (TYPO3 v12+)
-    // This will be adapted from how Brofix registers its backend module.
-    // \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-    //     'PguBrofixExtras', // Was 'Sypets.Brofix' or similar in original
-    //     'web',
-    //     'brokenlinks', // Module key
-    //     '', // Position
-    //     [
-    //         // Controller Actions e.g.,
-    //         // \Gaumondp\PguBrofixExtras\Controller\BrokenLinkListController::class => 'handleRequest, main, report, checklinks, recheckUrl, editField',
-    //     ],
-    //     [
-    //         'access' => 'user,group',
-    //         'icon' => 'EXT:pgu_brofix_extras/Resources/Public/Icons/module-brokenlinks.svg', // Adjust icon path
-    //         'labels' => 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_mod_brokenlinks.xlf', // Adjust LLL path
-    //     ]
+    $extensionKey = 'pgu_brofix_extras';
+
+    // --- PSR-14 Event Listener Registration (Ideal Scenario) ---
+    // This is the preferred way if sypets/brofix dispatches a relevant PSR-14 event.
+    // We would need to know the exact event class dispatched by Brofix.
+    // Example (assuming Brofix dispatches an event like ModifyLinkTargetResponseEvent):
+    //
+    // $eventDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\EventHandling\EventDispatcher::class);
+    // $eventDispatcher->addListener(
+    //     ModifyLinkTargetResponseEvent::class, // This is a HYPOTHETICAL event from Brofix
+    //     ModifyLinkTargetResponseForCloudflareListener::class . '::enhanceResponseIfCloudflare'
     // );
 
-    // If Brofix uses PSR-14 events for extensibility, listeners would be registered here.
-    // Or if it provides hooks.
 
-    // Define the custom LinkTargetResponse reason constant if it's not defined by core.
-    // This ensures it's available globally within TYPO3 once our extension is loaded.
-    // We might move this to a more specific bootstrap location if appropriate.
-    if (!defined('TYPO3\CMS\Linkvalidator\LinkTarget\LinkTargetResponse::REASON_CANNOT_CHECK_CLOUDFLARE')) {
-        define('TYPO3\CMS\Linkvalidator\LinkTarget\LinkTargetResponse::REASON_CANNOT_CHECK_CLOUDFLARE', 'Link is behind Cloudflare');
-    }
+    // --- XCLASSing (If no events or service decoration is suitable) ---
+    // This is generally a last resort.
+    // Example: To override a method in Brofix's ExternalLinktype
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\Sypets\Brofix\Linktype\ExternalLinktype::class] = [
+        'className' => \Gaumondp\PguBrofixExtras\Xclass\BrofixExternalLinktype::class
+    ];
+
+    // --- Constant Definition ---
+    // The constants REASON_CANNOT_CHECK_CLOUDFLARE and RESULT_UNKNOWN are already defined in
+    // Sypets\Brofix\CheckLinks\LinkTargetResponse\LinkTargetResponse.
+    // Our XCLASS will use these existing Brofix constants.
+    // No need to define new constants here for this specific purpose if we align with Brofix's definitions.
+
+    // No specific module registration here as `pgu_brofix_extras` only extends Brofix's UI.
+    // UI changes will be handled by template overrides and potentially CSS.
 });

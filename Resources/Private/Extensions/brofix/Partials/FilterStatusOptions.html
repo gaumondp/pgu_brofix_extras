@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:comment>
+    This partial overrides sypets/brofix's original partial for rendering the status filter dropdown.
+    It adds an option for "Cloudflare" (status 5).
+    Assumes the filter object (e.g., {filter}) is passed, and {filter.checkStatusFilter} holds the current value.
+    The name attribute of the select element should match what Brofix's controller expects.
+    The LLL keys for existing statuses should point to Brofix's language file or be generic.
+</f:comment>
+
+<label for="brofix-filter-check-status" class="form-label">
+    <f:translate key="LLL:EXT:brofix/Resources/Private/Language/Module/locallang.xlf:list.filter.check_status.label" default="Status"/>
+</label>
+<select id="brofix-filter-check-status" name="tx_brofix_web_brofixbrokenlinks[filter][checkStatusFilter]" class="form-select">
+    <option value="-1" {f:if(condition: '{filter.checkStatusFilter} == -1', then: 'selected="selected"')}>
+        <f:translate key="LLL:EXT:brofix/Resources/Private/Language/Module/locallang.xlf:list.filter.check_status.all" default="All"/>
+    </option>
+    <option value="1" {f:if(condition: '{filter.checkStatusFilter} == 1', then: 'selected="selected"')}>
+        <f:translate key="LLL:EXT:brofix/Resources/Private/Language/Module/locallang.xlf:list.filter.check_status.1" default="Broken"/>
+    </option>
+    <option value="2" {f:if(condition: '{filter.checkStatusFilter} == 2', then: 'selected="selected"')}>
+        <f:translate key="LLL:EXT:brofix/Resources/Private/Language/Module/locallang.xlf:list.filter.check_status.2" default="OK"/>
+    </option>
+    <option value="3" {f:if(condition: '{filter.checkStatusFilter} == 3', then: 'selected="selected"')}>
+        <f:translate key="LLL:EXT:brofix/Resources/Private/Language/Module/locallang.xlf:list.filter.check_status.3" default="Cannot Check"/>
+    </option>
+    <option value="4" {f:if(condition: '{filter.checkStatusFilter} == 4', then: 'selected="selected"')}>
+        <f:translate key="LLL:EXT:brofix/Resources/Private/Language/Module/locallang.xlf:list.filter.check_status.4" default="Excluded"/>
+    </option>
+    <option value="5" {f:if(condition: '{filter.checkStatusFilter} == 5', then: 'selected="selected"')}>
+        <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.5" />
+    </option>
+    <f:comment>
+        The original PR's Brofix form had a loop for {checkStatusOptions}.
+        If that was the case in the actual Brofix partial, this override would need to replicate that loop
+        and inject the Cloudflare option into or after it.
+        This simplified version lists options explicitly.
+    </f:comment>
+</select>
+</html>

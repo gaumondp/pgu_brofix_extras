@@ -1,0 +1,39 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:comment>
+    This partial overrides sypets/brofix's original partial for rendering the link status cell.
+    It adds a specific icon for Cloudflare (status 5) and relies on Brofix's controller
+    to prepare `{item.linkmessage}`. If Brofix's controller uses the LLL key
+    'list.msg.status.cloudflare' for status 5, our language file will provide the text.
+</f:comment>
+
+<f:variable name="status" value="{item.check_status -> f:format.number(decimals: 0)}" /> <f:comment>Ensure status is treated as integer for comparison</f:comment>
+
+<f:if condition="{status} == 1"><core:icon identifier="actions-exclamation-triangle" size="small" /></f:if>
+<f:if condition="{status} == 2"><core:icon identifier="actions-check-circle" size="small" /></f:if>
+<f:if condition="{status} == 3"><core:icon identifier="actions-question-circle" size="small" /></f:if>
+<f:if condition="{status} == 4"><core:icon identifier="actions-ban" size="small" /></f:if>
+<f:if condition="{status} == 5">
+    <core:icon identifier="actions-cloud" size="small" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.msg.status.cloudflare')}" />
+</f:if>
+
+<span class="link-status-message status-{status}">
+    <f:if condition="{status} == 5">
+        <f:comment>
+            If Brofix's renderTableRow directly sets item.linkmessage for status 5 using its LLL key,
+            our language file providing that same key (list.msg.status.cloudflare) will override the text.
+            If we want to be absolutely sure OUR LLL key is used, we'd do:
+            <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.msg.status.cloudflare" />
+            For now, assume Brofix's controller prepares item.linkmessage adequately and our LLL overrides the text if the key matches.
+            The original PR modified Brofix's controller to use 'LLL:EXT:brofix/...:list.msg.status.cloudflare'.
+            So, if our pgu_brofix_extras LLL file also provides 'list.msg.status.cloudflare', it should be picked up.
+        </f:comment>
+         <f:format.raw>{item.linkmessage}</f:format.raw>
+    </f:if>
+    <f:else>
+        <f:format.raw>{item.linkmessage}</f:format.raw>
+    </f:else>
+</span>
+</html>

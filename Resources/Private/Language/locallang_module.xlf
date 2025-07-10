@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="messages" product-name="pgu_brofix_extras" date="2023-10-27T12:00:00Z">
+        <header/>
+        <body>
+            <!-- Filter Option for Cloudflare -->
+            <trans-unit id="list.filter.check_status.5" xml:space="preserve">
+                <source>Cloudflare</source>
+            </trans-unit>
+
+            <!-- Status Message for Cloudflare in the list -->
+            <!-- This key should match what Brofix's BrokenLinkListController.php (renderTableRow method) -->
+            <!-- would use for status 5 if it were to use a dedicated LLL key. -->
+            <!-- The PR directly used the LLL key for list.msg.status.cloudflare from Brofix's main lang file. -->
+            <!-- We will provide this key in our extension's language file, and TYPO3's LLL system -->
+            <!-- will pick it up if Brofix's template calls for this exact key. -->
+            <!-- Alternatively, if Brofix's template generates the message for status 5 without a specific LLL key, -->
+            <!-- our XCLASS for the controller would be needed to change that. -->
+            <!-- For now, assuming Brofix's template might directly or indirectly use this key for status 5. -->
+            <trans-unit id="list.msg.status.cloudflare" xml:space="preserve">
+                <source>Cloudflare Protected (PGU)</source>
+            </trans-unit>
+
+            <!-- This is for the REASON_CANNOT_CHECK_CLOUDFLARE constant, if displayed -->
+            <trans-unit id="brofix.reasonCannotCheckCloudflare" xml:space="preserve">
+                <source>Link is behind Cloudflare, direct check may be restricted.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

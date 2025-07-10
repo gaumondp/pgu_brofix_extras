@@ -1,0 +1,64 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{pagination} && {pagination.numberOfPages} > 1">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <f:if condition="{pagination.hasPreviousPage}">
+                <f:then>
+                    <li class="page-item">
+                        <a class="page-link" href="{be:uri.module(route:moduleName, parameters:'{id: id, orderBy: orderBy, depth: depth, paginationPage: 1, viewMode: viewMode}')}" title="{f:translate(key:'widget.pagination.first', extensionName:'fluid')}">
+                            <core:icon identifier="actions-view-paging-first" size="small" />
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="{be:uri.module(route:moduleName, parameters:'{id: id, orderBy: orderBy, depth: depth, paginationPage: pagination.previousPageNumber, viewMode: viewMode}')}" title="{f:translate(key:'widget.pagination.previous', extensionName:'fluid')}">
+                            <core:icon identifier="actions-view-paging-previous" size="small" />
+                        </a>
+                    </li>
+                </f:then>
+                <f:else>
+                    <li class="page-item disabled">
+                        <span class="page-link"><core:icon identifier="actions-view-paging-first" size="small" /></span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link"><core:icon identifier="actions-view-paging-previous" size="small" /></span>
+                    </li>
+                </f:else>
+            </f:if>
+
+            <li class="page-item disabled">
+                <span class="page-link">
+                    {f:translate(key:'widget.pagination.records', arguments:'{0: pagination.startRecordNumber, 1: pagination.endRecordNumber, 2: pagination.totalItems}', extensionName:'fluid')}
+                    ({f:translate(key:'widget.pagination.pages', arguments:'{0: pagination.currentPageNumber, 1: pagination.numberOfPages}', extensionName:'fluid')})
+                </span>
+            </li>
+
+            <f:if condition="{pagination.hasNextPage}">
+                <f:then>
+                    <li class="page-item">
+                        <a class="page-link" href="{be:uri.module(route:moduleName, parameters:'{id: id, orderBy: orderBy, depth: depth, paginationPage: pagination.nextPageNumber, viewMode: viewMode}')}" title="{f:translate(key:'widget.pagination.next', extensionName:'fluid')}">
+                            <core:icon identifier="actions-view-paging-next" size="small" />
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="{be:uri.module(route:moduleName, parameters:'{id: id, orderBy: orderBy, depth: depth, paginationPage: pagination.numberOfPages, viewMode: viewMode}')}" title="{f:translate(key:'widget.pagination.last', extensionName:'fluid')}">
+                            <core:icon identifier="actions-view-paging-last" size="small" />
+                        </a>
+                    </li>
+                </f:then>
+                <f:else>
+                    <li class="page-item disabled">
+                        <span class="page-link"><core:icon identifier="actions-view-paging-next" size="small" /></span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link"><core:icon identifier="actions-view-paging-last" size="small" /></span>
+                    </li>
+                </f:else>
+            </f:if>
+        </ul>
+    </nav>
+</f:if>
+</html>

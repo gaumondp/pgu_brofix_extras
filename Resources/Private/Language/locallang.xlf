@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="messages" product-name="pgu_brofix_extras">
+        <header/>
+        <body>
+            <trans-unit id="extension.title" xml:space="preserve">
+                <source>PGU Brofix Extras</source>
+            </trans-unit>
+            <trans-unit id="extension.description" xml:space="preserve">
+                <source>Enhanced Brofix link checker with Cloudflare detection and other improvements. Based on sypets/brofix.</source>
+            </trans-unit>
+            <trans-unit id="moduleFunction.tx_pgubrofuxextras_brokenlinks" xml:space="preserve">
+                <source>Broken Link Checker</source>
+            </trans-unit>
+            <trans-unit id="module.backend.brokenLinkList" xml:space="preserve">
+                <source>PGU Broken Link List</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

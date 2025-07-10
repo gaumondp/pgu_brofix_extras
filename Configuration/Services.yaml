@@ -1,0 +1,59 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Gaumondp\PguBrofixExtras\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/Model/*' # Standard exclusion
+      # Add other exclusions if necessary
+
+  # --- Service Decoration or XCLASS (Alternative to PSR-14 Events) ---
+  # This section will be populated based on findings in Step 2 (Investigate Extension Points).
+
+  # Option 1: Service Decoration (Preferred if ExternalLinktype is a service in Brofix)
+  # This assumes Sypets\Brofix\Linktype\ExternalLinktype is a registered service.
+  # Gaumondp\PguBrofixExtras\Service\CloudflareAwareExternalLinktypeDecorator:
+  #   decorates: Sypets\Brofix\Linktype\ExternalLinktype
+  #   decoration_priority: 10 # Higher priority means it wraps earlier
+  #   arguments:
+  #     # The '.inner' service refers to the original Sypets\Brofix\Linktype\ExternalLinktype
+  #     - '@Gaumondp\PguBrofixExtras\Service\CloudflareAwareExternalLinktypeDecorator.inner'
+  #     # Add other dependencies for the decorator if any (e.g., RequestFactory, Logger)
+  #     - '@TYPO3\CMS\Core\Http\RequestFactory'
+  #     - '@Psr\Log\LoggerInterface' # Will be autowired to a default logger
+
+  # Option 2: If XCLASSing is chosen (via ext_localconf.php), no specific service definition
+  # might be needed here unless the XCLASS itself has specific dependencies to configure.
+
+  # Option 3: Event Listener (If Brofix uses PSR-14 events)
+  # Gaumondp\PguBrofixExtras\EventListener\LinkAnalysis\ModifyLinkTargetResponseForCloudflareListener:
+  #   tags:
+  #     - name: event.listener
+  #       identifier: 'pgu-brofix-extras-cloudflare-detector'
+  #       event: Sypets\Brofix\Event\ModifyLinkTargetResponseEvent # This is a HYPOTHETICAL event class
+  #       method: 'enhanceResponseIfCloudflare' # The method in our listener to call
+    # Add dependencies for the listener if any, e.g.:
+    # arguments:
+    #   $requestFactory: '@TYPO3\CMS\Core\Http\RequestFactory'
+    #   $logger: '@Psr\Log\LoggerInterface'
+
+  # Service for Cloudflare Detection Logic (if separated out)
+  # Gaumondp\PguBrofixExtras\Service\CloudflareDetectionService:
+  #   public: false # Internal service
+  #   arguments:
+  #     $requestFactory: '@TYPO3\CMS\Core\Http\RequestFactory'
+  #     $logger: '@Psr\Log\LoggerInterface' # Autowired to default logger or specific channel
+
+# Example for a specific logger channel for this extension:
+# monolog.logger.pgu_brofix_extras:
+#   class: TYPO3\CMS\Core\Log\Logger
+#   factory: ['@TYPO3\CMS\Core\Log\LogManager', getLogger]
+#   arguments:
+#     - 'pgu_brofix_extras' # Channel name
+#
+# Psr\Log\LoggerInterface $pguBrofixExtrasLogger: '@monolog.logger.pgu_brofix_extras'
+# Use this alias if you want to inject a specific channel via autowiring by variable name.
+# Otherwise, classes will get the default logger when type-hinting LoggerInterface.

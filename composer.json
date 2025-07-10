@@ -1,0 +1,31 @@
+{
+    "name": "gaumondp/pgu-brofix-extras",
+    "type": "typo3-cms-extension",
+    "description": "Enhanced Brofix link checker with Cloudflare detection and other improvements. Based on sypets/brofix.",
+    "homepage": "https://github.com/gaumondp/pgu_brofix_extras",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Patrice Gaumond",
+            "email": "patrice.gaumond@pgu.dev",
+            "role": "Developer"
+        },
+        {
+            "name": "Jules Agent",
+            "role": "Assistant Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^12.4 || ^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gaumondp\\PguBrofixExtras\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "pgu_brofix_extras"
+        }
+    }
+}

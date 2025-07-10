@@ -1,0 +1,140 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<form method="post" id="pgu-brofix-extras-list-form" class="pgu-brofix-extras-list-form mb-4">
+    <div class="row row-cols-lg-auto g-3 align-items-end">
+        <f:comment>Hidden fields to persist state like current page ID, order, pagination</f:comment>
+        <input type="hidden" name="id" value="{id}" />
+        <input type="hidden" name="orderBy" value="{orderBy}" />
+        <input type="hidden" name="paginationPage" value="{paginationPage}" />
+        <input type="hidden" name="depth" value="{depth}" />
+        <input type="hidden" name="viewMode" value="{viewMode}" />
+
+        <div class="col-12 col-md-auto">
+            <label for="pgu-brofix-extras-howtotraverse" class="form-label">
+                <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:report.form.howtotraverse" />:
+            </label>
+            <select id="pgu-brofix-extras-howtotraverse" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[howtotraverse]" class="form-select">
+                <f:if condition="{isAdmin}">
+                    <f:then>
+                        <option value="all" {f:if(condition: '{filter.howtotraverse} == "all"', then: 'selected="selected"')}>
+                            <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.howtotraverse.all" />
+                        </option>
+                    </f:then>
+                    <f:else>
+                        <option value="allmountpoints" {f:if(condition: '{filter.howtotraverse} == "allmountpoints"', then: 'selected="selected"')}>
+                            <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.howtotraverse.allmountpoints" />
+                        </option>
+                    </f:else>
+                </f:if>
+                <option value="pages" {f:if(condition: '{filter.howtotraverse} == "pages"', then: 'selected="selected"')}>
+                    <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.howtotraverse.pages" />
+                </option>
+            </select>
+        </div>
+
+        <f:if condition="{filter.howtotraverse} == 'pages' || {filter.howtotraverse} == 'allmountpoints'">
+            <div class="col-12 col-md-auto">
+                <label for="pgu-brofix-extras-pagedepth" class="form-label">
+                    <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:report.form.depth" />:
+                </label>
+                <select id="pgu-brofix-extras-pagedepth" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[depth]" class="form-select">
+                    <option value="0" {f:if(condition: '{depth} == 0', then: 'selected="selected"')}>0</option>
+                    <option value="1" {f:if(condition: '{depth} == 1', then: 'selected="selected"')}>1</option>
+                    <option value="2" {f:if(condition: '{depth} == 2', then: 'selected="selected"')}>2</option>
+                    <option value="3" {f:if(condition: '{depth} == 3', then: 'selected="selected"')}>3</option>
+                    <option value="4" {f:if(condition: '{depth} == 4', then: 'selected="selected"')}>4</option>
+                    <option value="999" {f:if(condition: '{depth} == 999', then: 'selected="selected"')}>
+                        <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.depth_infi" />
+                    </option>
+                </select>
+            </div>
+        </f:if>
+
+        <div class="col-12 col-md-auto">
+            <label for="pgu-brofix-extras-uidfilter" class="form-label"><f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.tableHead.element" />:</label>
+            <input type="search" class="form-control" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[uid_searchFilter]" placeholder="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.uid')}" id="pgu-brofix-extras-uidfilter" value="{filter.uidFilter}" />
+        </div>
+
+        <f:if condition="{linktypes}">
+            <div class="col-12 col-md-auto">
+                <label for="pgu-brofix-extras-linktypefilter" class="form-label"><f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:columnHeader.link_type" />:</label>
+                <select id="pgu-brofix-extras-linktypefilter" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[linktype_searchFilter]" class="form-select">
+                    <f:for each="{linktypes}" as="linktypeValue" key="linktypeKey">
+                        <option value="{linktypeKey}" {f:if(condition: '{linktypeKey} == {filter.linktypeFilter}', then: 'selected="selected"')}>
+                            <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.linktype.{linktypeKey}">{linktypeValue}</f:translate>
+                        </option>
+                    </f:for>
+                </select>
+            </div>
+        </f:if>
+
+        <div class="col-12 col-md-auto">
+            <label for="pgu-brofix-extras-urlfilter" class="form-label"><f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.tableHead.url" />:</label>
+            <input type="search" size="30" class="form-control" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[url_searchFilter]" placeholder="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.url.placeholder')}" id="pgu-brofix-extras-urlfilter" value="{filter.urlFilter}" />
+        </div>
+        <div class="col-12 col-md-auto">
+             <label for="pgu-brofix-extras-urlmatchfilter" class="form-label visually-hidden"><f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.url_match.label" /></label>
+            <select id="pgu-brofix-extras-urlmatchfilter" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[url_match_searchFilter]" class="form-select">
+                <option value="partial" {f:if(condition: '{filter.urlFilterMatch} == "partial"', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.url.match.partial" /></option>
+                <option value="exact" {f:if(condition: '{filter.urlFilterMatch} == "exact"', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.url.match.exact" /></option>
+                <option value="partialnot" {f:if(condition: '{filter.urlFilterMatch} == "partialnot"', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.url.match.partialnot" /></option>
+                <option value="exactnot" {f:if(condition: '{filter.urlFilterMatch} == "exactnot"', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.url.match.exactnot" /></option>
+            </select>
+        </div>
+
+        <div class="col-12 col-md-auto">
+            <label for="pgu-brofix-extras-checkstatus" class="form-label">
+                <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.label" />:
+            </label>
+            <select id="pgu-brofix-extras-checkstatus" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[check_status]" class="form-select">
+                <option value="-1" {f:if(condition: '{filter.checkStatusFilter} == -1', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.all" /></option>
+                <option value="1" {f:if(condition: '{filter.checkStatusFilter} == 1', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.1" /></option>
+                <option value="2" {f:if(condition: '{filter.checkStatusFilter} == 2', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.2" /></option>
+                <option value="3" {f:if(condition: '{filter.checkStatusFilter} == 3', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.3" /></option>
+                <option value="4" {f:if(condition: '{filter.checkStatusFilter} == 4', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.4" /></option>
+                <option value="5" {f:if(condition: '{filter.checkStatusFilter} == 5', then: 'selected="selected"')}> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.check_status.5" /></option>
+                <f:comment><!-- Original had {checkStatusOptions} - if this is needed, it should be passed from controller --></f:comment>
+            </select>
+        </div>
+
+        <f:if condition="{filter.showUseCache}">
+            <div class="col-12 col-md-auto">
+                <label for="pgu-brofix-extras-usecache" class="form-label">
+                    <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.useCache.label" />:
+                </label>
+                <select id="pgu-brofix-extras-usecache" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[useCache]" class="form-select">
+                    <option value="0" {f:if(condition: '{filter.useCache} == 0', then: 'selected="selected"')}> <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:disable" /></option>
+                    <option value="1" {f:if(condition: '{filter.useCache} == 1', then: 'selected="selected"')}> <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:enable" /></option>
+                </select>
+            </div>
+        </f:if>
+    </div>
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-default" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[action]" value="report" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:label_refresh')}">
+            <core:icon identifier="actions-refresh" size="small"/> <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:label_refresh" />
+        </button>
+
+        <f:if condition="{filter.isFilterActive()}">
+            <button type="button" class="btn btn-warning" id="pgu-brofix-extras-reset-filter"
+                    onclick="document.getElementById('pgu-brofix-extras-uidfilter').value=''; document.getElementById('pgu-brofix-extras-urlfilter').value=''; /* TODO: Reset other filters via JS or make it a submit button that resets server-side */ this.form.submit();">
+                <core:icon identifier="actions-delete" size="small"/>
+                <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:button_remove_all_filter" />
+            </button>
+        </f:if>
+
+        <f:if condition="{showRecheckButton}">
+            <button type="submit" class="btn btn-secondary" name="tx_pgubrofuxextras_web_pgubrofuxextrasbrokenlinks[action]" value="checklinks" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.action.checkLinks')}">
+                <core:icon identifier="actions-system-cache-clear" size="small"/> <!-- Better icon for recheck -->
+                <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.button.checkLinks" />
+            </button>
+        </f:if>
+        <f:if condition="{docsurl}">
+            <a class="btn btn-link" href="{docsurl}" target="_blank" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:documentation')}">
+                <core:icon identifier="actions-document-info" size="small"/>
+            </a>
+        </f:if>
+    </div>
+</form>
+</html>

@@ -1,0 +1,113 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Gaumondp\PguBrofixExtras\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/Model/*' # Standard exclusion if using Domain Models not as services
+      - '../Classes/Domain/Repository/*' # Repositories are often configured explicitly
+
+  # Configuration Service
+  Gaumondp\PguBrofixExtras\Configuration\Configuration:
+    public: true # May need to be public if accessed globally or by non-DI aware code
+
+  # Core Link Analysis Services
+  Gaumondp\PguBrofixExtras\LinkAnalyzer:
+    public: true # Likely needed by the controller or scheduler tasks
+
+  Gaumondp\PguBrofixExtras\Parser\LinkParser:
+    public: false # Internal utility, likely autowired into LinkAnalyzer
+
+  # Linktype Services (assuming they might be collected via a tag or interface)
+  Gaumondp\PguBrofixExtras\Linktype\ExternalLinktype:
+    public: false # Autowired into Configuration or LinkAnalyzer
+    # If linktypes are collected by tag for Configuration:
+    # tags:
+    #   - { name: 'brofix.linktype', key: 'external' }
+
+  # Add other linktypes (InternalLinktype, FileLinktype) here if adapted
+
+  # Repository Services
+  Gaumondp\PguBrofixExtras\Repository\BrokenLinkRepository:
+    public: false # Autowired into services that need it
+
+  Gaumondp\PguBrofixExtras\Repository\ContentRepository:
+    public: false
+
+  Gaumondp\PguBrofixExtras\Repository\PagesRepository:
+    public: false
+
+  # CheckLinks Utilities
+  Gaumondp\PguBrofixExtras\CheckLinks\ExcludeLinkTarget:
+    public: false
+
+  Gaumondp\PguBrofixExtras\CheckLinks\LinkTargetCache\LinkTargetCacheInterface:
+    alias: Gaumondp\PguBrofixExtras\CheckLinks\LinkTargetCache\LinkTargetPersistentCache
+
+  Gaumondp\PguBrofixExtras\CheckLinks\LinkTargetCache\LinkTargetPersistentCache:
+    public: false
+
+  Gaumondp\PguBrofixExtras\CheckLinks\CrawlDelay:
+    public: false
+
+  Gaumondp\PguBrofixExtras\CheckLinks\CheckLinksStatistics:
+    public: false # Typically created as needed, not a shared service
+
+  # Controller - Modules often define controllers as services
+  Gaumondp\PguBrofixExtras\Controller\BrokenLinkListController:
+    public: true # Controllers for backend modules are typically public
+    # Constructor arguments are mostly services that can be autowired.
+    # If CoreExtensionConfiguration is needed directly and not just for Configuration class,
+    # it might need to be explicitly wired if autowiring by interface/class doesn't work as expected.
+    # arguments:
+    #   $coreExtensionConfiguration: '@TYPO3\CMS\Core\Configuration\ExtensionConfiguration'
+
+  Gaumondp\PguBrofixExtras\Controller\Filter\BrokenLinkListFilter:
+    public: false # Instantiated by controller, not a typical service
+
+  # Utility classes (often not services unless they have complex setup or are widely shared)
+  Gaumondp\PguBrofixExtras\Util\TcaUtil:
+    public: false # Static methods, not a service
+
+  Gaumondp\PguBrofixExtras\Util\StringUtil:
+    public: false # Static methods, not a service
+
+  # FormEngine classes if they are services
+  Gaumondp\PguBrofixExtras\FormEngine\FieldShouldBeChecked:
+    public: false # Instantiated by Configuration based on settings
+
+  Gaumondp\PguBrofixExtras\FormEngine\FieldShouldBeCheckedWithFlexform:
+    public: false # Instantiated by Configuration based on settings
+
+  # Ensure all necessary dependencies for these services are also defined or autowirable.
+  # For example, TYPO3 Core services like RequestFactory, FlashMessageService, ModuleTemplateFactory, IconFactory etc.
+  # are usually available for autowiring.
+  # If some classes have non-service scalar dependencies in constructor, they might need explicit configuration.
+  # The Configuration class, for example, now fetches extConf itself, simplifying its service definition.
+  # The LinkAnalyzer constructor takes repositories, which should be autowired.
+  # ExternalLinktype constructor has optional args, which DI can handle if defaults are null and they are services.
+  # BrokenLinkListController takes many services which should be autowirable.
+  # The CoreExtensionConfiguration is available as a service: TYPO3\CMS\Core\Configuration\ExtensionConfiguration
+  # PageRenderer is also available: TYPO3\CMS\Core\Page\PageRenderer
+  # FlashMessageService: TYPO3\CMS\Core\Messaging\FlashMessageService
+  # ModuleTemplateFactory: TYPO3\CMS\Backend\Template\ModuleTemplateFactory
+  # IconFactory: TYPO3\CMS\Core\Imaging\IconFactory
+  # RequestFactory: TYPO3\CMS\Core\Http\RequestFactory
+  # LogManager: TYPO3\CMS\Core\Log\LogManager (for getting loggers)
+  # LoggerInterface can be autowired if a default logger channel is configured or if specific channels are used.
+  # Psr\Log\LoggerInterface: '@monolog.logger.default' # Or specific channel
+
+  # Example for Logger if needed explicitly for a class:
+  # Gaumondp\PguBrofixExtras\SomeClassThatNeedsSpecificLogger:
+  #   arguments:
+  #     $logger: '@monolog.logger.pgu_brofix_extras' # Assuming you configure this channel
+  #
+  # services:
+  #   monolog.logger.pgu_brofix_extras:
+  #     class: TYPO3\CMS\Core\Log\Logger
+  #     factory: ['@TYPO3\CMS\Core\Log\LogManager', getLogger]
+  #     arguments:
+  #       - 'pgu_brofix_extras' # Channel name

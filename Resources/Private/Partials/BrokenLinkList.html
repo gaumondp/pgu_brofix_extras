@@ -1,0 +1,187 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{brokenLinks -> f:count()}">
+    <f:then>
+        <table class="table table-striped table-hover {viewMode}" id="pgu-brofix-extras-table">
+            <thead>
+                <tr>
+                    <th>
+                        <f:format.raw>{tableHeader.page.label}</f:format.raw>
+                        <f:if condition="{tableHeader.page.icon}">
+                            <core:icon identifier="{tableHeader.page.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th>
+                        <f:format.raw>{tableHeader.element.label}</f:format.raw>
+                        <f:if condition="{tableHeader.element.icon}">
+                            <core:icon identifier="{tableHeader.element.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th class="mobile-optional">
+                        <f:format.raw>{tableHeader.type.label}</f:format.raw>
+                        <f:if condition="{tableHeader.type.icon}">
+                            <core:icon identifier="{tableHeader.type.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th class="mobile-optional">
+                        <f:format.raw>{tableHeader.last_check_record.label}</f:format.raw>
+                        <f:if condition="{tableHeader.last_check_record.icon}">
+                            <core:icon identifier="{tableHeader.last_check_record.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th>
+                        <f:format.raw>{tableHeader.linktext.label}</f:format.raw>
+                        <f:if condition="{tableHeader.linktext.icon}">
+                            <core:icon identifier="{tableHeader.linktext.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th colspan="2">
+                        <f:format.raw>{tableHeader.url.label}</f:format.raw>
+                        <f:if condition="{tableHeader.url.icon}">
+                            <core:icon identifier="{tableHeader.url.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th>
+                        <f:format.raw>{tableHeader.error.label}</f:format.raw>
+                        <f:if condition="{tableHeader.error.icon}">
+                            <core:icon identifier="{tableHeader.error.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th class="mobile-optional">
+                        <f:format.raw>{tableHeader.last_check_url.label}</f:format.raw>
+                        <f:if condition="{tableHeader.last_check_url.icon}">
+                            <core:icon identifier="{tableHeader.last_check_url.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                    <th>
+                        <f:format.raw>{tableHeader.action.label}</f:format.raw>
+                        <f:if condition="{tableHeader.action.icon}">
+                            <core:icon identifier="{tableHeader.action.icon}" size="small"/>
+                        </f:if>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:for each="{brokenLinks}" as="item">
+                    <tr class="{f:if(condition: item.lastChecked, then: 'pgu-brofix-lastchecked')}">
+                        <td>
+                            <span title="{item.path -> f:format.htmlspecialchars()}">{item.pagetitle -> f:format.htmlspecialchars()} [{item.pageId}]</span>
+                        </td>
+                        <td>
+                            <f:if condition="{item.langIcon}">
+                                <core:icon identifier="{item.langIcon}" size="small"/>
+                            </f:if>
+                            {item.elementHeadline -> f:format.raw()} <!-- Raw if it contains HTML like icon -->
+                            [{item.record_uid}]
+                            <div class="inline-action">
+                                <f:if condition="{filter.uidFilter}">
+                                    <f:then>
+                                        <a class="btn btn-sm btn-default" href="{listUri}&uid_searchFilter=" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.unset.tooltip')}">
+                                            <core:icon identifier="actions-close" size="small"/>
+                                        </a>
+                                    </f:then>
+                                    <f:else>
+                                        <a class="btn btn-sm btn-default" href="{listUri}&uid_searchFilter={item.record_uid}" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.element.uid.tooltip')}">
+                                            <core:icon identifier="actions-filter" size="small"/>
+                                            <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:filter.button" />
+                                        </a>
+                                    </f:else>
+                                </f:if>
+                            </div>
+                        </td>
+                        <td class="mobile-optional">
+                            {item.elementIcon -> f:format.raw()}<span title="{item.table_name} {item.field}">{item.elementType}:<br/>{item.fieldName}</span>
+                        </td>
+                        <td class="mobile-optional" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.info.freshness.{item.freshness}')}">
+                            <span class="freshness_{item.freshness}">{item.last_check_formatted}</span>
+                            <f:if condition="{item.freshness} == 'stale'">
+                                <core:icon identifier="actions-document-synchronize" size="small"/>
+                            </f:if>
+                        </td>
+                        <td>
+                            <span>{item.link_title_display -> f:format.htmlspecialchars()}</span>
+                        </td>
+                        <td colspan="2">
+                            <f:if condition="{item.linktarget}">
+                                <f:then>
+                                    <a href="{item.linktarget}" target="_blank" rel="noreferrer">{item.linktext -> f:format.htmlspecialchars()}</a>
+                                    <f:if condition="{item.effectiveUrl}">
+                                        <br/><core:icon identifier="actions-arrow-down-right" size="small" /> <!-- Updated icon -->
+                                        <a href="{item.effectiveUrl}" target="_blank" rel="noreferrer" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.redirect_target')}">{item.effectiveUrl -> f:format.htmlspecialchars()}</a>
+                                        <span title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.redirect_count')}">({item.redirectCount})</span>
+                                    </f:if>
+                                    <div class="inline-action">
+                                        <f:if condition="{item.encoded_linktarget}">
+                                            <f:then>
+                                                <a class="btn btn-sm btn-default" href="{listUri}&url_searchFilter={item.encoded_linktarget}&url_match_searchFilter=exact" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.linktarget.tooltip')}">
+                                                    <core:icon identifier="actions-filter" size="small"/>
+                                                    <f:translate key="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:filter.button" />
+                                                </a>
+                                            </f:then>
+                                            <f:else>
+                                                <a class="btn btn-sm btn-default" href="{listUri}&url_searchFilter=" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.filter.unset.tooltip')}">
+                                                    <core:icon identifier="actions-close" size="small"/>
+                                                </a>
+                                            </f:else>
+                                        </f:if>
+                                    </div>
+                                </f:then>
+                                <f:else>
+                                    {item.linktext -> f:format.htmlspecialchars()}
+                                </f:else>
+                            </f:if>
+                        </td>
+                        <td>
+                            <f:if condition="{item.check_status} == 1"><core:icon identifier="actions-exclamation-triangle" size="small"/></f:if>
+                            <f:if condition="{item.check_status} == 2"><core:icon identifier="actions-check-circle" size="small"/></f:if>
+                            <f:if condition="{item.check_status} == 3"><core:icon identifier="actions-question-circle" size="small"/></f:if>
+                            <f:if condition="{item.check_status} == 4"><core:icon identifier="actions-ban" size="small"/></f:if>
+                            <f:if condition="{item.check_status} == 5"><core:icon identifier="actions-cloud" size="small"/></f:if> <!-- Cloudflare Icon -->
+                            {item.linkmessage -> f:format.raw()}
+                        </td>
+                        <td class="mobile-optional">
+                            <span>{item.last_check_url_formatted}</span>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <f:if condition="{item.editUrlField}">
+                                    <a class="btn btn-sm btn-default" href="{item.editUrlField}" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.edit.field')}">
+                                        <core:icon identifier="actions-open" size="small"/>
+                                    </a>
+                                </f:if>
+                                <f:if condition="{item.editUrlFull}">
+                                    <a class="btn btn-sm btn-default" href="{item.editUrlFull}" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.edit.record')}">
+                                        <core:icon identifier="actions-edit" size="small"/> <!-- Simpler icon for full edit -->
+                                    </a>
+                                </f:if>
+                                <f:if condition="{showPageLayoutButton}">
+                                    <be:link.module route="web_layout" parameters="{id: item.pageId, returnUrl: listUri, language: item.lang}" class="btn btn-sm btn-default" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.page_layout')}">
+                                        <core:icon identifier="actions-document" size="small"/>
+                                    </be:link.module>
+                                </f:if>
+                                <f:if condition="{item.recheckUrl}">
+                                    <a class="btn btn-sm btn-default" href="{item.recheckUrl}" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.action.recheckUrl')}">
+                                        <core:icon identifier="actions-refresh" size="small"/> <!-- Updated icon -->
+                                    </a>
+                                </f:if>
+                                <f:if condition="{item.excludeUrl}">
+                                    <a class="btn btn-sm btn-default" href="{item.excludeUrl}" title="{f:translate(key: 'LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.action.excludeUrl')}">
+                                        <core:icon identifier="actions-filetree-hide" size="small"/> <!-- Updated icon -->
+                                    </a>
+                                </f:if>
+                            </div>
+                        </td>
+                    </tr>
+                </f:for>
+            </tbody>
+        </table>
+        <f:render partial="Pagination" arguments="{pagination: pagination, listUri: listUri}" />
+    </f:then>
+    <f:else>
+        <core:ifEmpty lll="LLL:EXT:pgu_brofix_extras/Resources/Private/Language/locallang_module.xlf:list.no_items" />
+    </f:else>
+</f:if>
+</html>

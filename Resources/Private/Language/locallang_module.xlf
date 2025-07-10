@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="messages" product-name="pgu_brofix_extras">
+        <header/>
+        <body>
+            <!-- Module Name -->
+            <trans-unit id="mlang_tabs_tab" xml:space="preserve">
+                <source>Broken Link Checker (PGU)</source>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tabdescr" xml:space="preserve">
+                <source>Checks for broken links in your website and provides a report.</source>
+            </trans-unit>
+
+            <!-- Filter Options -->
+            <trans-unit id="list.filter.check_status.label" xml:space="preserve">
+                <source>Check Status</source>
+            </trans-unit>
+            <trans-unit id="list.filter.check_status.all" xml:space="preserve">
+                <source>All</source>
+            </trans-unit>
+            <trans-unit id="list.filter.check_status.1" xml:space="preserve">
+                <source>Broken</source>
+            </trans-unit>
+            <trans-unit id="list.filter.check_status.2" xml:space="preserve">
+                <source>OK</source>
+            </trans-unit>
+            <trans-unit id="list.filter.check_status.3" xml:space="preserve">
+                <source>Cannot Check</source>
+            </trans-unit>
+            <trans-unit id="list.filter.check_status.4" xml:space="preserve">
+                <source>Excluded</source>
+            </trans-unit>
+            <trans-unit id="list.filter.check_status.5" xml:space="preserve">
+                <source>Cloudflare</source>
+            </trans-unit>
+
+            <trans-unit id="report.form.howtotraverse" xml:space="preserve">
+                <source>Scope</source>
+            </trans-unit>
+            <trans-unit id="list.filter.howtotraverse.all" xml:space="preserve">
+                <source>Entire Site (Admin)</source>
+            </trans-unit>
+            <trans-unit id="list.filter.howtotraverse.allmountpoints" xml:space="preserve">
+                <source>All Mountpoints</source>
+            </trans-unit>
+            <trans-unit id="list.filter.howtotraverse.pages" xml:space="preserve">
+                <source>This Page &amp; Subpages</source>
+            </trans-unit>
+            <trans-unit id="report.form.depth" xml:space="preserve">
+                <source>Depth</source>
+            </trans-unit>
+            <trans-unit id="list.filter.uid" xml:space="preserve">
+                <source>Element UID</source>
+            </trans-unit>
+            <trans-unit id="columnHeader.link_type" xml:space="preserve">
+                <source>Link Type</source>
+            </trans-unit>
+            <trans-unit id="list.filter.linktype.all" xml:space="preserve">
+                 <source>All Types</source>
+            </trans-unit>
+            <trans-unit id="list.filter.linktype.external" xml:space="preserve">
+                 <source>External</source>
+            </trans-unit>
+            <trans-unit id="list.filter.linktype.db" xml:space="preserve">
+                 <source>Internal (Page/Content)</source>
+            </trans-unit>
+            <trans-unit id="list.filter.linktype.file" xml:space="preserve">
+                 <source>File</source>
+            </trans-unit>
+             <trans-unit id="list.filter.linktype.folder" xml:space="preserve">
+                 <source>Folder</source>
+            </trans-unit>
+            <trans-unit id="list.filter.url.placeholder" xml:space="preserve">
+                <source>URL contains...</source>
+            </trans-unit>
+            <trans-unit id="list.filter.url_match.label" xml:space="preserve">
+                <source>URL Match Type</source>
+            </trans-unit>
+            <trans-unit id="list.filter.url.match.partial" xml:space="preserve">
+                <source>Partial Match</source>
+            </trans-unit>
+            <trans-unit id="list.filter.url.match.exact" xml:space="preserve">
+                <source>Exact Match</source>
+            </trans-unit>
+            <trans-unit id="list.filter.url.match.partialnot" xml:space="preserve">
+                <source>Not Partial Match</source>
+            </trans-unit>
+            <trans-unit id="list.filter.url.match.exactnot" xml:space="preserve">
+                <source>Not Exact Match</source>
+            </trans-unit>
+            <trans-unit id="list.filter.useCache.label" xml:space="preserve">
+                <source>Use Page List Cache</source>
+            </trans-unit>
+            <trans-unit id="label_refresh" xml:space="preserve">
+                <source>Refresh List</source>
+            </trans-unit>
+            <trans-unit id="button_remove_all_filter" xml:space="preserve">
+                <source>Reset Filters</source>
+            </trans-unit>
+            <trans-unit id="list.action.checkLinks" xml:space="preserve">
+                <source>Re-Check Links Now</source>
+            </trans-unit>
+            <trans-unit id="list.button.checkLinks" xml:space="preserve">
+                <source>Re-Check Links</source>
+            </trans-unit>
+            <trans-unit id="documentation" xml:space="preserve">
+                <source>Documentation</source>
+            </trans-unit>
+            <trans-unit id="filter.button" xml:space="preserve">
+                <source>Filter</source>
+            </trans-unit>
+
+            <!-- Table Headers -->
+            <trans-unit id="list.tableHead.page" xml:space="preserve">
+                <source>Page</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.element" xml:space="preserve">
+                <source>Element</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.type" xml:space="preserve">
+                <source>Type</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.last_check.part1" xml:space="preserve">
+                <source>Last checked</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.last_check.part2.record" xml:space="preserve">
+                <source>(Record)</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.last_check.part2.url" xml:space="preserve">
+                <source>(URL)</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.linktext" xml:space="preserve">
+                <source>Link Text</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.url" xml:space="preserve">
+                <source>Link Target</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.error" xml:space="preserve">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="list.tableHead.action" xml:space="preserve">
+                <source>Actions</source>
+            </trans-unit>
+
+            <!-- Link Status Messages -->
+            <trans-unit id="list.msg.status.cloudflare" xml:space="preserve">
+                <source>Cloudflare Protected</source>
+            </trans-unit>
+            <trans-unit id="list.msg.ok" xml:space="preserve">
+                <source>OK</source>
+            </trans-unit>
+            <trans-unit id="list.msg.status.cannot_check" xml:space="preserve">
+                <source>Cannot Check</source>
+            </trans-unit>
+            <trans-unit id="list.msg.status.excluded" xml:space="preserve">
+                <source>Excluded</source>
+            </trans-unit>
+
+            <!-- Flash Messages & Notifications -->
+            <trans-unit id="list.status.check.done" xml:space="preserve">
+                <source>Link checking process initiated.</source>
+            </trans-unit>
+            <trans-unit id="list.recheck.url.title" xml:space="preserve">
+                <source>Re-check URL</source>
+            </trans-unit>
+            <trans-unit id="list.recheck.links.title" xml:space="preserve">
+                <source>Re-check Links in Record</source>
+            </trans-unit>
+            <trans-unit id="no.access" xml:space="preserve">
+                <source>You do not have access to this module or page.</source>
+            </trans-unit>
+            <trans-unit id="no.access.title" xml:space="preserve">
+                <source>Access Denied</source>
+            </trans-unit>
+            <trans-unit id="list.report.warning.max_limit_pages_reached" xml:space="preserve">
+                <source>The limit of %s pages for checking was reached. Some broken links may not be displayed. To see more, navigate to a subpage or adjust settings.</source>
+            </trans-unit>
+            <trans-unit id="list.report.warning.max_limit_pages_reached.title" xml:space="preserve">
+                <source>Page Limit Reached</source>
+            </trans-unit>
+            <trans-unit id="list.no.broken.links.filter" xml:space="preserve">
+                <source>No broken links found with the current filter!</source>
+            </trans-unit>
+            <trans-unit id="list.no.broken.links.this.page" xml:space="preserve">
+                <source>No broken links found on this page.</source>
+            </trans-unit>
+            <trans-unit id="list.no.broken.links.current.level" xml:space="preserve">
+                <source>No broken links found for the current page and depth.</source>
+            </trans-unit>
+            <trans-unit id="list.no.broken.links.level.infinite" xml:space="preserve">
+                <source>No broken links found on this page and its subpages.</source>
+            </trans-unit>
+            <trans-unit id="message.choose.higher.level" xml:space="preserve">
+                <source>You might see more results if you select a higher level or different page.</source>
+            </trans-unit>
+            <trans-unit id="list.rootpage" xml:space="preserve">
+                <source>Please select a page from the page tree to check for broken links.</source>
+            </trans-unit>
+             <trans-unit id="list.no_items_on_page" xml:space="preserve">
+                <source>No broken links found on this page or according to current filter.</source>
+            </trans-unit>
+            <trans-unit id="list.no_items" xml:space="preserve">
+                <source>No broken links found.</source>
+            </trans-unit>
+
+
+            <!-- Action Titles & Tooltips -->
+            <trans-unit id="list.filter.unset.tooltip" xml:space="preserve">
+                <source>Clear this filter</source>
+            </trans-unit>
+            <trans-unit id="list.filter.element.uid.tooltip" xml:space="preserve">
+                <source>Filter by this element UID</source>
+            </trans-unit>
+            <trans-unit id="list.filter.linktarget.tooltip" xml:space="preserve">
+                <source>Filter by this exact link target</source>
+            </trans-unit>
+            <trans-unit id="list.edit.field" xml:space="preserve">
+                <source>Edit this field</source>
+            </trans-unit>
+            <trans-unit id="list.edit.record" xml:space="preserve">
+                <source>Edit full record</source>
+            </trans-unit>
+            <trans-unit id="list.page_layout" xml:space="preserve">
+                <source>View page in Page module</source>
+            </trans-unit>
+            <trans-unit id="list.action.recheckUrl" xml:space="preserve">
+                <source>Re-check this URL</source>
+            </trans-unit>
+            <trans-unit id="list.action.excludeUrl" xml:space="preserve">
+                <source>Exclude this link target</source>
+            </trans-unit>
+
+            <!-- Link Error Messages (examples, more would be needed from original Brofix) -->
+            <trans-unit id="list.report.error.httpstatus.404" xml:space="preserve">
+                <source>Not Found (404)</source>
+            </trans-unit>
+            <trans-unit id="list.report.error.httpstatus.403" xml:space="preserve">
+                <source>Forbidden (403)</source>
+            </trans-unit>
+            <trans-unit id="list.report.error.httpstatus.general" xml:space="preserve">
+                <source>HTTP Error %s</source>
+            </trans-unit>
+            <trans-unit id="list.report.error.networkexception" xml:space="preserve">
+                <source>Network Error</source>
+            </trans-unit>
+             <trans-unit id="list.report.error.tooManyRedirects" xml:space="preserve">
+                <source>Too many redirects</source>
+            </trans-unit>
+            <trans-unit id="list.info.freshness.unknown" xml:space="preserve">
+                <source>Freshness of this check relative to record modification is unknown.</source>
+            </trans-unit>
+            <trans-unit id="list.info.freshness.stale" xml:space="preserve">
+                <source>Record was modified after this link was last checked. Re-check recommended.</source>
+            </trans-unit>
+            <trans-unit id="list.info.freshness.fresh" xml:space="preserve">
+                <source>Link was checked after the record was last modified.</source>
+            </trans-unit>
+            <trans-unit id="list.redirect_target" xml:space="preserve">
+                <source>Redirect Target</source>
+            </trans-unit>
+            <trans-unit id="list.redirect_count" xml:space="preserve">
+                <source>Redirects</source>
+            </trans-unit>
+
+            <!-- For constants -->
+             <trans-unit id="constants.linkTargetResponse.reasonCannotCheckCloudflare" xml:space="preserve">
+                <source>Link is behind Cloudflare</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
